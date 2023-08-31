@@ -85,6 +85,7 @@ section {
     font-weight: 700;
     color: #fff;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .greeting-icon{
@@ -191,4 +192,28 @@ input::-webkit-inner-spin-button {
     font-weight: 700;
     color: #fff;
     margin-bottom: 20px;
+}
+
+/* Mobile adaptive */
+@media(max-width: 640px) {
+    .greeting, .calculator {
+        width: 360px;
+    }
+    .greeting-title, .calculator-title span {
+        font-size: 32px;
+    }
+    .greeting-icon {
+        width: 120px;
+        height: 120px;
+    }
+    .greeting-text {
+        font-size: 16px;
+        line-height: 24px;
+    }
+    .greeting-button, .calculator-button {
+        font-size: 20px;
+    }
+    .coefficient-item label {
+        font-size: 20px;
+    }
 }
