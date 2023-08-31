@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quadratic Calculator</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="CSS/style.css">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Icon -->
+    <link rel="shortcut icon" href="Resourses/icon.png" type="image/x-icon">
+</head>
+<body>
+    <section>
+        <div class="start-screen">
+            <div class="greeting">
+                <span class="greeting-title">Quadratic Calculator</span>
+                <img class="greeting-icon" src="Resourses/icon.png">
+                <span class="greeting-text">Hello everyone!<br>My name is Dmitry Anufriev, I'm frontend developer, now you can see my simple calculator for solve quadratic extensions.<br>If you want you can see my other programs in my <a href="https://github.com/Skeinc">github</a> profile!</span>
+                <button class="greeting-button" type="submit">Next</button>
+            </div>
+        </div>
+
+        <div class="main-screen">
+            <div class="calculator">
+                <div class="calculator-title">
+                    <span>Enter coefficients:</span>
+                </div>
+
+                <div class="calculator-coefficients">
+                    <div class="coefficient-item">
+                        <label for="coefficientA">A:</label>
+                        <input type="number" id="coefficientA">
+                    </div>
+
+                    <div class="coefficient-item">
+                        <label for="coefficientB">B:</label>
+                        <input type="number" id="coefficientB">
+                    </div>
+
+                    <div class="coefficient-item">
+                        <label for="coefficientC">C:</label>
+                        <input type="number" id="coefficientC">
+                    </div>
+                </div>
+
+                <div class="calculator-result">
+                    <span class="result"></span>
+                    <button class="calculator-button" type="submit">Get result</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- JS -->
+    <script src="JS/main.js"></script>
+</body>
+</html>
