@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="CSS/style.css">
+    <!-- Icons -->
+    <link rel="shortcut icon" href="Resourses/icon.png" type="image/x-icon">
+    <!-- Box Icons -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <section id="background">
+        <div class="app">
+            <div class="start-screen">
+                <div class="app-logo">
+                    <img src="Resourses/logo.png">
+                </div>
+
+                <div class="app-title">
+                    <span>To-Do List</span>
+                </div>
+
+                <div class="app-information">
+                    <span>Hello everyone! This project was created for an internship at Case Lab JavaScript from Greenatom's company.<br>If you want you can see my other programs in my <a href="https://github.com/Skeinc">github</a> profile!</span>
+                </div>
+
+                <div class="app-start-button">
+                    <button type="submit">Let's start</button>
+                </div>
+            </div>
+
+            <div class="main-screen">
+                <div class="app-header">
+                    <span>To-Do List</span>
+                    <button type="submit"><i class='bx bx-plus'></i></button>
+                </div>
+
+                <div class="app-controller">
+                    <button type="submit" class="controller-button active-button">All</button>
+                    <button type="submit" class="controller-button">Even</button>
+                    <button type="submit" class="controller-button">Odd</button>
+                    <button type="submit" class="controller-button">First</button>
+                    <button type="submit" class="controller-button">Last</button>
+                </div>
+
+                <div class="app-content">
+                    <div class="todo-list">
+                        <div class="todo-item">
+                            <div class="todo-item-button item-button-complete">
+                                <button type="submit" class="button-complete"><i class='bx bx-check'></i></button>
+                            </div>
+
+                            <div class="todo-item-information">
+                                <span class="todo-item-name">Shopping</span>
+                                <span class="todo-item-date">06-09-2023</span>
+                            </div>
+
+                            <div class="todo-item-button">
+                                <button type="submit" class="button-delete"><i class='bx bx-x' ></i></button>
+                            </div>
+                        </div>
+
+                        <div class="todo-item">
+                            <div class="todo-item-button item-button-complete">
+                                <button type="submit" class="button-complete"><i class='bx bx-check'></i></button>
+                            </div>
+
+                            <div class="todo-item-information">
+                                <span class="todo-item-name">Car Driving</span>
+                                <span class="todo-item-date">07-09-2023</span>
+                            </div>
+
+                            <div class="todo-item-button">
+                                <button type="submit" class="button-delete"><i class='bx bx-x' ></i></button>
+                            </div>
+                        </div>
+
+                        <div class="todo-item">
+                            <div class="todo-item-button item-button-complete">
+                                <button type="submit" class="button-complete"><i class='bx bx-check'></i></button>
+                            </div>
+
+                            <div class="todo-item-information">
+                                <span class="todo-item-name">Eating</span>
+                                <span class="todo-item-date">09-09-2023</span>
+                            </div>
+
+                            <div class="todo-item-button">
+                                <button type="submit" class="button-delete"><i class='bx bx-x' ></i></button>
+                            </div>
+                        </div>
+
+                        <div class="todo-item">
+                            <div class="todo-item-button item-button-complete">
+                                <button type="submit" class="button-complete"><i class='bx bx-check'></i></button>
+                            </div>
+
+                            <div class="todo-item-information">
+                                <span class="todo-item-name">Walk with friends</span>
+                                <span class="todo-item-date">10-09-2023</span>
+                            </div>
+
+                            <div class="todo-item-button">
+                                <button type="submit" class="button-delete"><i class='bx bx-x' ></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="add-screen">
+                <div class="app-header">
+                    <span>Add a new case</span>
+                </div>
+
+                <div class="app-add-logo">
+                    <img src="Resourses/logo.png">
+                </div>
+
+                <div class="app-inputs">
+                    <input type="text" placeholder="Name">
+                    <input type="text" placeholder="31-12-2023">
+                </div>
+
+                <div class="app-request">
+                    <span class="request-error"></span>
+                </div>
+
+                <div class="app-add-buttons">
+                    <button type="submit" class="cancel-button">Cancel</button>
+                    <button type="submit" class="apply-button">Apply</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JS -->
+    <script src="JS/main.js"></script>
+</body>
+</html>
