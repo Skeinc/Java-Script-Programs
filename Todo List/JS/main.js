@@ -16,12 +16,24 @@ const lastController = mainScreen.children[1].children[4];
 // Inputs
 const nameInput = addScreen.children[2].children[0];
 const dateInput = addScreen.children[2].children[1];
+// Id counter for local storage
+let idCounter;
+window.onload = () => {
+    if(localStorage.getItem("ID") === null) {
+        idCounter = 0;
+        localStorage.setItem("ID", idCounter);
+    }
+    else {
+        idCounter = Number(localStorage.getItem("ID"));
+    }
+}
 
 // User click to start button
 startButton.addEventListener('click', () => {
     startScreen.style.display = "none";
     mainScreen.style.animation = "nextSlide 0.4s";
     mainScreen.style.display = "flex";
+    showData();
 });
 
 // User click to add button
@@ -103,6 +115,86 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+// Function for get id of todo-item to saving in local storage
+function getId() {
+    idCounter += 0.5;
+    localStorage.setItem("ID", idCounter);
+    return idCounter;
+}
+
+// Function for save data to local storage
+function saveData(name, date, id, status) {
+    const itemObj = {
+        id: id,
+        name: name,
+        date: date,
+        status: status
+    }
+    try {
+        return localStorage.setItem(`todo-item-${id}`, JSON.stringify(itemObj)); 
+    }
+    catch(error) {
+        if(error === QUOTA_EXCEEDED_ERR) {
+            alert(error, "Local storage limit exceeded")
+        }
+        else {
+            alert(error);
+        }
+    }
+}
+
+// Function for show data from local storage
+function showData() {
+    for(element in localStorage) {
+        if(typeof localStorage.getItem(element) === "string") {
+            const itemData = JSON.parse(localStorage.getItem(element));
+            // if status of item = active
+            if(itemData["status"] === "active") {
+                const item = `<div class="todo-item">
+                                <div class="todo-item-button">
+                                    <button type="submit" class="button-complete">&#10004;</button>
+                                </div>
+
+                                <div class="todo-item-information">
+                                    <span class="todo-item-name">${itemData["name"]}</span>
+                                    <span class="todo-item-date">${itemData["date"]}</span>
+                                    <span class="todo-item-id">${itemData["id"]}</span>
+                                </div>
+
+                                <div class="todo-item-button">
+                                    <button type="submit" class="button-delete">×</button>
+                                </div>
+                            </div>`;
+                mainScreen.children[2].children[0].innerHTML += item;
+            }
+            // if status of item = completed
+            else if(itemData["status"] === "completed") {
+                const item = `<div class="completed-item">
+                                <div class="todo-item-button">
+                                    <button type="submit" class="button-return">↻</button>
+                                </div>
+
+                                <div class="todo-item-information">
+                                    <span class="todo-item-name">${itemData["name"]}</span>
+                                    <span class="todo-item-date">${itemData["date"]}</span>
+                                    <span class="todo-item-id">${itemData["id"]}</span>
+                                </div>
+
+                                <div class="todo-item-button">
+                                    <button type="submit" class="button-delete">×</button>
+                                </div>
+                            </div>`;
+                mainScreen.children[2].children[1].innerHTML += item;
+            }
+        }
+    }
+}
+
+// Function for remove data from local storage
+function removeData(id) {
+    return localStorage.removeItem(`todo-item-${id}`);
+}
+
 // User click to "All Controller"
 allControlller.addEventListener('click', () => {
     // Normalize to-do list
@@ -163,6 +255,8 @@ firstController.addEventListener('click', async () => {
     catch(error) {
         return alert(error);
     }
+    // Delete data from local storage
+    removeData(todoItems[0].children[1].children[2].innerHTML);
     // Get delete animation to element
     todoItems[0].style.animation = "deleteItem 0.4s";
     // "sleep" code on 0.4s
@@ -187,6 +281,8 @@ lastController.addEventListener('click', async () => {
     catch(error) {
         return alert(error);
     }
+    // Delete data from local storage
+    removeData(todoItems[todoItems.length-1].children[1].children[2].innerHTML);
     // Get delete animation to element
     todoItems[todoItems.length-1].style.animation = "deleteItem 0.4s";
     // "sleep" code on 0.4s
@@ -198,6 +294,8 @@ lastController.addEventListener('click', async () => {
 // User click to delete button or user click to complete button on todo-list
 mainScreen.children[2].children[0].addEventListener('click', async (element) => {
     if(element.target.classList.contains("button-delete")) {
+        // Delete data from local storage
+        removeData(element.target.parentElement.parentElement.children[1].children[2].innerHTML);
         // Get delete animation to element
         element.target.parentElement.parentElement.style.animation = "deleteItem 0.4s";
         // "sleep" code on 0.4s
@@ -206,6 +304,8 @@ mainScreen.children[2].children[0].addEventListener('click', async (element) => 
         return element.target.parentElement.parentElement.remove();
     }
     if(element.target.classList.contains("button-complete")) {
+        // Change status of item in local storage
+        saveData(element.target.parentElement.parentElement.children[1].children[0].innerHTML, element.target.parentElement.parentElement.children[1].children[1].innerHTML, element.target.parentElement.parentElement.children[1].children[2].innerHTML, "completed");
         // Create item
         const completedItem = ` <div class="completed-item">
                                     <div class="todo-item-button">
@@ -215,6 +315,7 @@ mainScreen.children[2].children[0].addEventListener('click', async (element) => 
                                     <div class="todo-item-information">
                                         <span class="todo-item-name">${element.target.parentElement.parentElement.children[1].children[0].innerHTML}</span>
                                         <span class="todo-item-date">${element.target.parentElement.parentElement.children[1].children[1].innerHTML}</span>
+                                        <span class="todo-item-id">${element.target.parentElement.parentElement.children[1].children[2].innerHTML}</span>
                                     </div>
 
                                     <div class="todo-item-button">
@@ -235,6 +336,8 @@ mainScreen.children[2].children[0].addEventListener('click', async (element) => 
 // User click to delete button or return button on completed items
 mainScreen.children[2].children[1].addEventListener('click', async (element) => {
     if(element.target.classList.contains("button-delete")) {
+        // Delete data from local storage
+        removeData(element.target.parentElement.parentElement.children[1].children[2].innerHTML);
         // Get delete animation to element
         element.target.parentElement.parentElement.style.animation = "deleteItem 0.4s";
         // "sleep" code on 0.4s
@@ -243,6 +346,8 @@ mainScreen.children[2].children[1].addEventListener('click', async (element) => 
         return element.target.parentElement.parentElement.remove();
     }
     if(element.target.classList.contains("button-return")) {
+        // Change status of item in local storage
+        saveData(element.target.parentElement.parentElement.children[1].children[0].innerHTML, element.target.parentElement.parentElement.children[1].children[1].innerHTML, element.target.parentElement.parentElement.children[1].children[2].innerHTML, "active");
         // Create item
         const todoItem = ` <div class="todo-item">
                                     <div class="todo-item-button">
@@ -252,6 +357,7 @@ mainScreen.children[2].children[1].addEventListener('click', async (element) => 
                                     <div class="todo-item-information">
                                         <span class="todo-item-name">${element.target.parentElement.parentElement.children[1].children[0].innerHTML}</span>
                                         <span class="todo-item-date">${element.target.parentElement.parentElement.children[1].children[1].innerHTML}</span>
+                                        <span class="todo-item-id">${element.target.parentElement.parentElement.children[1].children[2].innerHTML}</span>
                                     </div>
 
                                     <div class="todo-item-button">
@@ -271,7 +377,6 @@ mainScreen.children[2].children[1].addEventListener('click', async (element) => 
 
 // User click to apply button
 applyButton.addEventListener('click', () => {
-    validateData();
     // If we haven't errors
     if(validateData()) {
         // Create new item with name and date from inputs
@@ -283,18 +388,21 @@ applyButton.addEventListener('click', () => {
                             <div class="todo-item-information">
                                 <span class="todo-item-name">${nameInput.value}</span>
                                 <span class="todo-item-date">${dateInput.value}</span>
+                                <span class="todo-item-id">${getId() + 0.5}</span>
                             </div>
 
                             <div class="todo-item-button">
                                 <button type="submit" class="button-delete">×</button>
                             </div>
                         </div>`;
+        // Save data to local storage
+        saveData(nameInput.value, dateInput.value, getId(), "active");
         // Clear values of inputs
         nameInput.value = "";
         dateInput.value = "";
         // Turn to main screen
         turnToMainScreen();
         // Return new item to todo list
-        return mainScreen.children[2].children[0].innerHTML += newItem;
+        mainScreen.children[2].children[0].innerHTML += newItem;
     }
 });

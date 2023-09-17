@@ -391,6 +391,10 @@ section {
     color: #1d1d1d;
 }
 
+.todo-item-id {
+    display: none;
+}
+
 .completed-item .todo-item-name {
     text-decoration: line-through;
 }
